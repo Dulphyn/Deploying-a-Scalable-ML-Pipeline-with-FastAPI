@@ -69,7 +69,7 @@ model = load_model(
 ) 
 
 # TODO: use the inference function to run the model inferences on the test dataset.
-preds = None # your code here
+preds = inference(model, test) # your code here
 
 # Calculate and print the metrics
 p, r, fb = compute_model_metrics(y_test, preds)
@@ -84,6 +84,10 @@ for col in cat_features:
         p, r, fb = performance_on_categorical_slice(
             # your code here
             # use test, col and slicevalue as part of the input
+            test,
+            col,
+            slicevalue,
+            model=model
         )
         with open("slice_output.txt", "a") as f:
             print(f"{col}: {slicevalue}, Count: {count:,}", file=f)
