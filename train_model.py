@@ -22,7 +22,7 @@ data = pd.read_csv(data_path) # your code here
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
 random_state=42
 test_size=0.2
-train, test = train_test_split(data, test_size = test_size, random_state=random_state)# Your code here
+train, test = train_test_split(data, test_size = test_size, random_state = random_state)# Your code here
 
 # DO NOT MODIFY
 cat_features = [
@@ -42,7 +42,9 @@ X_train, y_train, encoder, lb = process_data(
     # use the train dataset 
     # use training=True
     # do not need to pass encoder and lb as input
-    train
+    train,
+    categorical_features = cat_features,
+    label = "salary"
     )
 
 X_test, y_test, _, _ = process_data(
@@ -69,7 +71,7 @@ model = load_model(
 ) 
 
 # TODO: use the inference function to run the model inferences on the test dataset.
-preds = inference(model, test) # your code here
+preds = inference(model, X_test) # your code here
 
 # Calculate and print the metrics
 p, r, fb = compute_model_metrics(y_test, preds)
@@ -87,7 +89,11 @@ for col in cat_features:
             test,
             col,
             slicevalue,
-            model=model
+            label = "salary",
+            categorical_features = cat_features,
+            encoder = encoder,
+            lb = lb,
+            model = model
         )
         with open("slice_output.txt", "a") as f:
             print(f"{col}: {slicevalue}, Count: {count:,}", file=f)
