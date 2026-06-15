@@ -39,17 +39,65 @@ def test_apply_labels(input_labels):
     actual_0, actual_1 = apply_label([input_labels[0]]), apply_label([input_labels[1]])
 
     # Assert equivalent labels
-    assert expected_0==actual_0
-    assert expected_1==actual_1
+    assert expected_0 == actual_0
+    assert expected_1 == actual_1
 
 
 # TODO: implement the second test. Change the function name and input as needed
-def test_two():
+@pytest.fixture
+def input_slice():
     """
-    # add description for the second test
+    Get sample count, precision, recall, and F1 score for Federal-gov workclass. 
     """
-    # Your code here
-    pass
+    # Read slice_output.txt
+    with open("slice_output.txt", "r") as f:
+        lines = f.readlines()
+
+    # Federal-gov line number index
+    n = 2
+
+    # Sample count
+    count = lines[n].rstrip("\n")[-3:]
+
+    # Stats
+    stats = lines[n+1].rstrip("\n").split(" | ")
+
+    # Precision
+    precision = stats[0][-6:]
+    
+    # Recall
+    recall = stats[1][-6:]
+
+    # F1
+    f1 = stats[2][-6:]
+    return count, precision, recall, f1
+
+def test_slice_output(input_slice):
+    """
+    Assert Federal-gov workclass performance is the expected value.
+
+    Inputs
+    ------
+    count : str
+        Federal-gov workclass sample count
+    precision : str
+        Federal-gov workclass precision
+    recall : str
+        Federal-gov workclass recall
+    f1 : str
+        Federal-gov workclass F1 score
+    """
+    # Expected performance values
+    expected_count, expected_precision, expected_recall, expected_f1 = "191", "0.7971", "0.7857", "0.7914"
+
+    # Actual performance values
+    actual_count, actual_precision, actual_recall, actual_f1 = input_slice[0], input_slice[1], input_slice[2], input_slice[3]
+    
+    #Assert equivalent performance values
+    assert expected_count == actual_count
+    assert expected_precision == actual_precision
+    assert expected_recall == actual_recall
+    assert expected_f1 == actual_f1
 
 
 # TODO: implement the third test. Change the function name and input as needed
