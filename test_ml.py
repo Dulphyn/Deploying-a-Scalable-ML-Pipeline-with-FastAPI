@@ -28,7 +28,7 @@ def test_apply_labels(input_labels):
 
     Inputs
     ------
-    labels : np.array
+    input_labels : np.array
         Model label classes
     """
     # Expected model labels
@@ -78,13 +78,13 @@ def test_slice_output(input_slice):
 
     Inputs
     ------
-    count : str
+    input_slice[count] : str
         Federal-gov workclass sample count
-    precision : str
+    input_slice[precision] : str
         Federal-gov workclass precision
-    recall : str
+    input_slice[recall] : str
         Federal-gov workclass recall
-    f1 : str
+    input_slice[f1] : str
         Federal-gov workclass F1 score
     """
     # Expected performance values
@@ -101,9 +101,33 @@ def test_slice_output(input_slice):
 
 
 # TODO: implement the third test. Change the function name and input as needed
-def test_three():
+@pytest.fixture
+def input_encoder():
     """
-    # add description for the third test
+    Get data type of saved encoder.
     """
-    # Your code here
-    pass
+    # Get saved encoder path
+    project_path = os.getcwd()
+    data_path = os.path.join(project_path, "model", "encoder.pkl")
+
+    # Read encoder pickle file
+    encoder = load_model(data_path)
+
+    # Get data type
+    data_type = encoder.__class__.__name__
+    return data_type
+
+def test_encoder_data_type(input_encoder):
+    """
+    Assert saved encoder is the expected data type.
+
+    Inputs
+    ------
+    input_encoder : str
+        Encoder data type
+    """
+    # Expected encoder data type
+    expected_data_type = "OneHotEncoder"
+
+    # Assert equivalent data type
+    assert input_encoder==expected_data_type
