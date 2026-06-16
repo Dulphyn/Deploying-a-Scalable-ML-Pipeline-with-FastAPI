@@ -130,4 +130,4 @@ def test_encoder_data_type(input_encoder):
     expected_data_type = "OneHotEncoder"
 
     # Assert equivalent data type
-    assert input_encoder==expected_data_type
+    assert input_encoder == expected_data_type
