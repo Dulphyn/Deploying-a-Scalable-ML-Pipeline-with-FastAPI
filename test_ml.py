@@ -1,11 +1,9 @@
 import pytest
-# TODO: add necessary import
 import os
 import numpy as np
 from ml.model import load_model
 from ml.data import apply_label
 
-# TODO: implement the first test. Change the function name and input as needed
 @pytest.fixture
 def input_labels():
     """
@@ -42,8 +40,6 @@ def test_apply_labels(input_labels):
     assert expected_0 == actual_0
     assert expected_1 == actual_1
 
-
-# TODO: implement the second test. Change the function name and input as needed
 @pytest.fixture
 def input_slice():
     """
@@ -99,8 +95,6 @@ def test_slice_output(input_slice):
     assert expected_recall == actual_recall
     assert expected_f1 == actual_f1
 
-
-# TODO: implement the third test. Change the function name and input as needed
 @pytest.fixture
 def input_encoder():
     """
